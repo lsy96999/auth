@@ -1,0 +1,23 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= Seongyun
+:doctype: book
+:toc: left
+:sectnums:
+:toclevels: 3
+:source-highlighter: highlights
+
+== Sample
+=== SampleList
+
+HttpRequest
+include::{snippets}/sample/http-request.adoc[]
+
+ResponseFields
+include::{snippets}/sample/response-fields.adoc[]
+
+HttpResponse
+include::{snippets}/sample/http-response.adoc[]
+ 

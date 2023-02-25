@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.3'
 	id 'io.spring.dependency-management' version '1.1.0'
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'//restDoc
 }
 
 group = 'seongyun.auth'
@@ -12,6 +13,7 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	asciidoctorExt//restDoc
 }
 
 repositories {
@@ -19,13 +21,44 @@ repositories {
 }
 
 dependencies {
+	asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'//restDoc
+	testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'//restDoc
+	
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+	
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+}
+
+//restDoc
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
+//restDoc
+test { 
+	outputs.dir snippetsDir
+}
+
+//restDoc
+asciidoctor { 
+	inputs.dir snippetsDir 
+	configurations 'asciidoctorExt' 
+	dependsOn test 
+}
+
+//restDoc
+bootJar {
+	dependsOn asciidoctor 
+	from ("${asciidoctor.outputDir}/html5") { 
+		into 'static/docs'
+	}
 }
 
 tasks.named('test') {
