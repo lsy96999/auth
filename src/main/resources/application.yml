@@ -1,0 +1,35 @@
+server:
+  port: 7100
+  shutdown: graceful
+logging:
+  level:
+    '[seongyun.auth]': DEBUG
+    '[org.springframework.r2dbc]': DEBUG
+spring:
+  profiles:
+    active:
+    - dev
+  lifecycle:
+    timeout-per-shutdown-phase: 20s #for graceful
+  thymeleaf:
+    suffix: .html
+    cache: false
+  sql:
+    init:
+      mode: always
+  r2dbc:
+    url: ENC(Zq2JF5/8oCw164q5oro5/YVfmPGvOhNqGdHsEue4H46/alf/7CRxThw5kOSlEwGTl7NE0MESjR65JrqfvpTJuA==)
+    username: ENC(tAM5Sv5/zlokwIvOzjIFVrGO8r13i/+y)
+    password: ENC(dC3enWrCdOvi1jRWi/7rBp25skuMeHpk)
+---
+spring:
+  config:
+    activate:
+      on-profile:
+      - dev
+---
+spring:
+  config:
+    activate:
+      on-profile:
+      - prd
