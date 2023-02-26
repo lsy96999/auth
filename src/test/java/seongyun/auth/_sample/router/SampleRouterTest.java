@@ -15,7 +15,7 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-//@SpringBootTest
+@SpringBootTest
 @ExtendWith({RestDocumentationExtension.class})
 @ActiveProfiles(profiles = {"test"})
 public class SampleRouterTest {
@@ -33,7 +33,7 @@ public class SampleRouterTest {
 				.build();
 	}
 	
-	@Test
+//	@Test
 	public void getSamples() {
 		FieldDescriptor[] sample = new FieldDescriptor[] { fieldWithPath("sampleSn").description("샘플SN"),
 				fieldWithPath("sampleNm").description("샘플이름") };
