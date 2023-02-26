@@ -1,3 +1,4 @@
+#https://www.devglan.com/online-tools/jasypt-online-encryption-decryption
 server:
   port: 7100
   shutdown: graceful
@@ -18,9 +19,9 @@ spring:
     init:
       mode: always
   r2dbc:
-    url: ENC(Zq2JF5/8oCw164q5oro5/YVfmPGvOhNqGdHsEue4H46/alf/7CRxThw5kOSlEwGTl7NE0MESjR65JrqfvpTJuA==)
-    username: ENC(tAM5Sv5/zlokwIvOzjIFVrGO8r13i/+y)
-    password: ENC(dC3enWrCdOvi1jRWi/7rBp25skuMeHpk)
+    url: r2dbc:postgresql://auth.seongyun.i234.me:15432/token #ENC(Zq2JF5/8oCw164q5oro5/YVfmPGvOhNqGdHsEue4H46/alf/7CRxThw5kOSlEwGTl7NE0MESjR65JrqfvpTJuA==)
+    username: authadmin #ENC(tAM5Sv5/zlokwIvOzjIFVrGO8r13i/+y)
+    password: ENC(dC3enWrCdOvi1jRWi/7rBp25skuMeHpk) #authAdmin #ENC(dC3enWrCdOvi1jRWi/7rBp25skuMeHpk)
 ---
 spring:
   config:
@@ -33,3 +34,12 @@ spring:
     activate:
       on-profile:
       - prd
+---
+spring:
+  config:
+    activate:
+      on-profile:
+      - test
+  sql:
+    init:
+      mode: never
