@@ -13,7 +13,7 @@ public class GlobalExceptionAttributes extends DefaultErrorAttributes{
 	public Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
 		Map<String, Object> map = super.getErrorAttributes(request, options);
 		Throwable throwable = getError(request);
-		map.put("message", throwable.getMessage());
+		map.put("description", throwable.getMessage());
 		if(throwable instanceof CustomException) {
 //			CustomException ce = (CustomException) throwable;
 		}

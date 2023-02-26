@@ -15,7 +15,7 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-@SpringBootTest
+//@SpringBootTest
 @ExtendWith({RestDocumentationExtension.class})
 @ActiveProfiles(profiles = {"test"})
 public class SampleRouterTest {
