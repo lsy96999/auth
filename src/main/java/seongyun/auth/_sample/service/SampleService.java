@@ -1,5 +1,8 @@
 package seongyun.auth._sample.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,13 @@ import seongyun.auth._sample.repository.SampleRepository;
 @RequiredArgsConstructor
 public class SampleService {
 	private final SampleRepository sampleRepository;
+	
+	public Mono<Page<Sample>> getSamplesPage(PageRequest pageRequest) {
+		return sampleRepository.findAllBy(pageRequest)
+		.collectList()
+		.zipWith(sampleRepository.count())
+		.map(t->new PageImpl<>(t.getT1(), pageRequest, t.getT2()));
+	}
 	
 	public Flux<Sample> getSamples(){
 		return sampleRepository.findAll();

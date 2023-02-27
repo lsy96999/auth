@@ -30,6 +30,7 @@ public class SampleRouter {
 		return nest(path("/api/sample"), 
 								route(GET(EMPTY),		sampleApiHandler::getSamples)
 							.andRoute(GET("/{sn}"),		sampleApiHandler::getSample)
+							.andRoute(GET("/p/page"),		sampleApiHandler::getSamplesPage)
 							.andRoute(POST(EMPTY),		sampleApiHandler::addSample)
 							.andRoute(PUT(EMPTY),		sampleApiHandler::updateSample)
 							.andRoute(DELETE("/{sn}"),	sampleApiHandler::deleteSample))

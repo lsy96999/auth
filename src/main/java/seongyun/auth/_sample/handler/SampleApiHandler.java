@@ -1,5 +1,8 @@
 package seongyun.auth._sample.handler;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -20,6 +23,23 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 @RequiredArgsConstructor
 public class SampleApiHandler {
 	private final SampleService sampleService;
+	
+	public Mono<ServerResponse> getSamplesPage(ServerRequest req){
+		Integer size = Integer.valueOf(req.queryParam("size").orElse("10"));
+		Integer page = Integer.valueOf(req.queryParam("page").orElse("0"));
+		Sort srt = Sort.by("sampleNm", "sampleSn").descending();
+		Mono<Page<Sample>> fs = sampleService.getSamplesPage(PageRequest.of(page, size, srt));
+		return fs.flatMap(s -> {
+					RVO<Page<Sample>> rvo = new RVO<>();
+					rvo.setCode("xxxx");
+					rvo.setMessage("messages");
+					rvo.setData(s);
+					return ok()
+							.contentType(MediaType.APPLICATION_JSON)
+							.body(fromValue(rvo));
+				});
+//				.switchIfEmpty(ok().body(fromValue(rvn)));
+	}
 	
 	public Mono<ServerResponse> getSamples(ServerRequest req){
 		
