@@ -29,15 +29,15 @@ create table IF NOT EXISTS tb_tk_admin(
 	admin_pw varchar(100),
 	tk_admin_sttus_code varchar(100),
 	use_yn char(1),
-	frst_regist_dt timestamp,
-	last_mdfied_dt timestamp,
-	frst_regist_user_sn numeric(10),
-	last_mdfied_user_sn numeric(10)
+	create_at timestamp,
+	update_at timestamp,
+	create_by numeric(10),
+	update_by numeric(10)
 );
 --@sta
 create sequence IF NOT EXISTS seq_tb_tk_admin;
 --@tcc
-create table tb_common_code(
+create table IF NOT EXISTS tb_common_code(
 	code_id varchar(100),
 	code_value varchar(100),
 	code_nm varchar(100),
@@ -45,10 +45,10 @@ create table tb_common_code(
 	code_group varchar(50),
 	sort_ordr numeric(10),
 	use_yn char(1),
-	frst_regist_dt timestamp,
-	last_mdfied_dt timestamp,
-	frst_regist_user_sn numeric(10),
-	last_mdfied_user_sn numeric(10),
+	create_at timestamp,
+	update_at timestamp,
+	create_by numeric(10),
+	update_by numeric(10),
 	primary key (code_id, code_value)
 );
 --@ttar
@@ -56,10 +56,10 @@ create table IF NOT EXISTS tb_tk_admin_role(
 	admin_sn numeric(10),
 	tk_admin_role_code varchar(100),
 	use_yn char(1),
-	frst_regist_dt timestamp,
-	last_mdfied_dt timestamp,
-	frst_regist_user_sn numeric(10),
-	last_mdfied_user_sn numeric(10),
+	create_at timestamp,
+	update_at timestamp,
+	create_by numeric(10),
+	update_by numeric(10),
 	primary key (admin_sn, tk_admin_role_code)
 );
 ----------

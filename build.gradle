@@ -21,6 +21,10 @@ repositories {
 }
 
 dependencies {
+	// https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+	implementation 'org.modelmapper:modelmapper:3.1.1'
+	
+
 	implementation 'com.auth0:java-jwt:4.3.0'
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot:3.0.5'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
