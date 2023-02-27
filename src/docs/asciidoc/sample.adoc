@@ -10,14 +10,64 @@ endif::[]
 :source-highlighter: highlights
 
 == Sample
-=== SampleList
+=== Samples
+HttpRequest
+include::{snippets}/samples/http-request.adoc[]
 
+HttpResponse
+include::{snippets}/samples/http-response.adoc[]
+
+ResponseFields
+include::{snippets}/samples/response-fields.adoc[]
+
+=== Sample
 HttpRequest
 include::{snippets}/sample/http-request.adoc[]
+
+PathParameters
+include::{snippets}/sample/path-parameters.adoc[]
+
+HttpResponse
+include::{snippets}/sample/http-response.adoc[]
 
 ResponseFields
 include::{snippets}/sample/response-fields.adoc[]
 
+=== SampleSave
+HttpRequest
+include::{snippets}/save/http-request.adoc[]
+
+RequestBody
+include::{snippets}/save/request-body.adoc[]
+
 HttpResponse
-include::{snippets}/sample/http-response.adoc[]
+include::{snippets}/save/http-response.adoc[]
+
+ResponseFields
+include::{snippets}/save/response-fields.adoc[]
+
+=== SampleUpdate
+HttpRequest
+include::{snippets}/update/http-request.adoc[]
+
+RequestBody
+include::{snippets}/update/request-body.adoc[]
+
+HttpResponse
+include::{snippets}/update/http-response.adoc[]
+
+ResponseFields
+include::{snippets}/update/response-fields.adoc[]
  
+=== SampleDelete
+HttpRequest
+include::{snippets}/delete/http-request.adoc[]
+
+PathParameters
+include::{snippets}/delete/path-parameters.adoc[]
+
+HttpResponse
+include::{snippets}/delete/http-response.adoc[]
+
+ResponseFields
+include::{snippets}/delete/response-fields.adoc[]
