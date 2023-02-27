@@ -19,9 +19,9 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
-
 import reactor.core.publisher.Mono;
 import seongyun.auth._sample.domain.entity.Sample;
+
 @SpringBootTest
 @ExtendWith({RestDocumentationExtension.class})
 @ActiveProfiles(profiles = {"test"})
