@@ -17,11 +17,14 @@ spring:
     cache: false
   sql:
     init:
-      mode: always
+      mode: never
   r2dbc:
-    url: r2dbc:postgresql://auth.seongyun.i234.me:15432/token #ENC(Zq2JF5/8oCw164q5oro5/YVfmPGvOhNqGdHsEue4H46/alf/7CRxThw5kOSlEwGTl7NE0MESjR65JrqfvpTJuA==)
+    url: r2dbc:postgresql://192.168.25.221:15432/token #ENC(Zq2JF5/8oCw164q5oro5/YVfmPGvOhNqGdHsEue4H46/alf/7CRxThw5kOSlEwGTl7NE0MESjR65JrqfvpTJuA==)
     username: authadmin #ENC(tAM5Sv5/zlokwIvOzjIFVrGO8r13i/+y)
     password: ENC(dC3enWrCdOvi1jRWi/7rBp25skuMeHpk) #authAdmin #ENC(dC3enWrCdOvi1jRWi/7rBp25skuMeHpk)
+    pool:
+      enabled: true
+      
 ---
 spring:
   config:
