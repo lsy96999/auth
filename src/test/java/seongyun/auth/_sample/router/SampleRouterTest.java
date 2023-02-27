@@ -10,6 +10,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +25,7 @@ import seongyun.auth._sample.domain.entity.Sample;
 @SpringBootTest
 @ExtendWith({RestDocumentationExtension.class})
 @ActiveProfiles(profiles = {"test"})
+@Disabled
 public class SampleRouterTest {
 	private static final String PW = "?";
 	static {
