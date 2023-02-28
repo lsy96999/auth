@@ -15,8 +15,11 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 @RequiredArgsConstructor
 public class ApiTkAdminHandler {
 	private final TkAdminService tkAdminService;
-
-	public Mono<ServerResponse> test(ServerRequest req){
-		return tkAdminService.tests().collectList().flatMap(ab->ok().body(fromValue(ab)));
+	
+	public Mono<ServerResponse> getTkAdminBySn (ServerRequest req) {
+		Long adminSn = Long.parseLong(req.pathVariable("adminSn"));
+		return tkAdminService.getTkAdminBySn(adminSn).flatMap(a->{
+			return ok().body(fromValue(a));
+		});
 	}
 }

@@ -25,9 +25,9 @@ insert into tb_sample(sample_nm) values ('hi3');
 --@3
 delete from tb_common_code;
 --@4
-insert into tb_common_code(code_id, code_value, code_nm, use_yn, create_at, update_at, create_by, update_by) values ('TK_ADMIN_STTUS_CODE', 'LIVE', '가입', 'Y', now(), now(), 1, 1);
-insert into tb_common_code(code_id, code_value, code_nm, use_yn, create_at, update_at, create_by, update_by) values ('TK_ADMIN_STTUS_CODE', 'DEAD', '탈퇴', 'Y', now(), now(), 1, 1);
-insert into tb_common_code(code_id, code_value, code_nm, use_yn, create_at, update_at, create_by, update_by) values ('TK_ADMIN_ROLE_CODE', 'ROLE_SUPER', '최고권한', 'Y', now(), now(), 1, 1);
+insert into tb_common_code(code_id, code_value, code_nm, use_yn, sort_ordr, create_at, update_at, create_by, update_by) values ('TK_ADMIN_STTUS_CODE', 'LIVE', '가입', 'Y', 1, now(), now(), 1, 1);
+insert into tb_common_code(code_id, code_value, code_nm, use_yn, sort_ordr, create_at, update_at, create_by, update_by) values ('TK_ADMIN_STTUS_CODE', 'DEAD', '탈퇴', 'Y', 1, now(), now(), 1, 1);
+insert into tb_common_code(code_id, code_value, code_nm, use_yn, sort_ordr, create_at, update_at, create_by, update_by) values ('TK_ADMIN_ROLE_CODE', 'ROLE_SUPER', '최고권한', 1, 'Y', now(), now(), 1, 1);
 --@5
 delete from tb_tk_admin;
 --@6

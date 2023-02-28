@@ -7,8 +7,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Getter
 @SuperBuilder
-public class TkAdminRole {
+public class TkAdminRole extends Base{
 	private Long adminSn;
-	private TkAdmin admin;
 	private CommonCode adminSttusCode; 
 }

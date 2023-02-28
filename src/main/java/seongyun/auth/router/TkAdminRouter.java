@@ -26,7 +26,7 @@ public class TkAdminRouter {
 	@Bean
 	public RouterFunction<ServerResponse> adminRoute(){
 		return nest(path("/api/tkadmin"), 
-								route(GET("/test"),		apiTkAdminHandler::test)
+								route(GET("/{adminSn}"),		apiTkAdminHandler::getTkAdminBySn)
 							);
 	}
 }
