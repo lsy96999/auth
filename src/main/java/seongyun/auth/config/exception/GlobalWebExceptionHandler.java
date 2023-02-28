@@ -9,7 +9,7 @@ import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
+//import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerCodecConfigurer;
@@ -23,7 +23,8 @@ import org.springframework.web.reactive.result.view.ViewResolver;
 import reactor.core.publisher.Mono;
 
 @Configuration
-@Order(Ordered.HIGHEST_PRECEDENCE) //TODO: 404 catch issue
+//@Order(Ordered.HIGHEST_PRECEDENCE) //TODO: 404 catch issue
+@Order(-2)
 public class GlobalWebExceptionHandler extends AbstractErrorWebExceptionHandler{
 	public GlobalWebExceptionHandler(GlobalExceptionAttributes globalErrorAttributes, 
 			ApplicationContext applicationContext,

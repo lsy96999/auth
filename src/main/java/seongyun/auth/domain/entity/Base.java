@@ -2,7 +2,7 @@ package seongyun.auth.domain.entity;
 
 import java.time.LocalDateTime;
 
-import lombok.Builder;
+//import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;

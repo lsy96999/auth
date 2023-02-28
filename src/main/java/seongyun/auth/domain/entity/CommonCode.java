@@ -1,6 +1,6 @@
 package seongyun.auth.domain.entity;
 
-import lombok.Builder;
+//import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
