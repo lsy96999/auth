@@ -26,7 +26,7 @@ public class TkAdminRepository {
 	
 	public Mono<TkAdmin> getTkAdminBySub(Long adminSn, String mail) {
 		String sql = """
-					SELECT 
+				SELECT 
 					--
 					tta.admin_sn AS tta_admin_sn,
 					tta.admin_nm AS tta_admin_nm,
@@ -80,12 +80,12 @@ public class TkAdminRepository {
 				WHERE 1=1
 				""";
 				if(adminSn != null) {
-					sql += "AND tta.admin_sn = :value";
+					sql += "AND tta.admin_sn = :adminSn";
 				} else if(mail != null) {
-					sql += "AND tta.admin_mail = :value";
+					sql += "AND tta.admin_mail = :mail";
 				}
 				
-		Flux<TkAdmin> a = databaseClient.sql(sql).bind("value", adminSn != null ? adminSn : mail).fetch().all()
+		Flux<TkAdmin> a = databaseClient.sql(sql).bind(adminSn != null ? "adminSn" : "mail", adminSn != null ? adminSn : mail).fetch().all()
 		.bufferUntilChanged(result -> result.get("tta_admin_sn"))
 		.map(result->{
 			List<TkAdminRole> roles = result.stream().map(r -> TkAdminRole.builder()
