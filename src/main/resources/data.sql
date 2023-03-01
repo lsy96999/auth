@@ -31,7 +31,7 @@ insert into tb_common_code(code_id, code_value, code_nm, use_yn, sort_ordr, crea
 --@5
 delete from tb_tk_admin;
 --@6
-insert into tb_tk_admin(admin_sn, admin_nm, admin_mail, admin_pw, tk_admin_sttus_code, use_yn, create_at, update_at, create_by, update_by) values(1, 'ADMIN', 'ADMIN', 'ADMIN', 'LIVE', 'Y', now(), now(), 1, 1);
+insert into tb_tk_admin(admin_sn, admin_nm, admin_mail, admin_pw, tk_admin_sttus_code, use_yn, create_at, update_at, create_by, update_by) values(1, 'ADMIN', 'ADMIN', '$2a$10$kKZa.kSx/SGQKiUrJToVbeWLEYL4H/PwVnVFpNVlsPTS4ivkBHV0W', 'LIVE', 'Y', now(), now(), 1, 1);
 --@7
 delete from tb_tk_admin_role;
 --@8

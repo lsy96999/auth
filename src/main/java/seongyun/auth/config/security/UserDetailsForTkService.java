@@ -1,4 +1,4 @@
-package seongyun.auth.service;
+package seongyun.auth.config.security;
 
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,5 +21,4 @@ public class UserDetailsForTkService implements ReactiveUserDetailsService{
 		});
 		return uds;
 	}
-
 }

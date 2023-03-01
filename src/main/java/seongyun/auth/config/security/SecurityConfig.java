@@ -1,4 +1,4 @@
-package seongyun.auth.config;
+package seongyun.auth.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +14,13 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @EnableWebFluxSecurity
 @Configuration
 public class SecurityConfig {
-//	@Bean
+	
+	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
-//	@Bean
+	//@Bean//FOR test
 	public MapReactiveUserDetailsService userDetailService() {
 		@SuppressWarnings("deprecation")
 		UserDetails user = User.withDefaultPasswordEncoder()
