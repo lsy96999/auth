@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -18,12 +16,6 @@ import reactor.core.publisher.Mono;
 public class AuthenticationManager implements ReactiveAuthenticationManager{
 	private final ReactiveUserDetailsService ruds;
 	private final PasswordEncoder pe;
-	
-	@PostConstruct
-	public void aa() {
-		System.out.println(pe.encode("ADMIN"));
-	}
-	
 	
 	@Override
 	public Mono<Authentication> authenticate(Authentication authentication) {

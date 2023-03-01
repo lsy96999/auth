@@ -15,11 +15,12 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import lombok.RequiredArgsConstructor;
 import seongyun.auth.handler.ApiTkAdminHandler;
+import seongyun.auth.handler.TkAdminHandler;
 
 @Configuration
 @RequiredArgsConstructor
 public class TkAdminRouter {
-//	private final TkAdminHandler tkAdminHandler;
+	private final TkAdminHandler tkAdminHandler;
 	private final ApiTkAdminHandler apiTkAdminHandler;
 	private static final String EMPTY = "";
 
@@ -27,6 +28,13 @@ public class TkAdminRouter {
 	public RouterFunction<ServerResponse> adminRoute(){
 		return nest(path("/api/tkadmin"), 
 								route(GET("/{adminSn}"),		apiTkAdminHandler::getTkAdminBySn)
+							);
+	}
+	
+	@Bean
+	public RouterFunction<ServerResponse> adminViewRoute(){
+		return nest(path("/join"), 
+								route(GET(EMPTY),		tkAdminHandler::joinPage)
 							);
 	}
 }
