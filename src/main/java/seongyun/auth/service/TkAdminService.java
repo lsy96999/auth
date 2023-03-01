@@ -15,4 +15,8 @@ public class TkAdminService {
 	public Mono<TkAdmin> getTkAdminBySn(Long adminSn){
 		return tkAdminRepository.getTkAdminBySn(adminSn);
 	}
+	
+	public Mono<TkAdmin> getTkAdminByMail(String mail){
+		return tkAdminRepository.getTkAdminByMail(mail);
+	}
 }

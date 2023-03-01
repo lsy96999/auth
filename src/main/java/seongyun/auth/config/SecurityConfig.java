@@ -19,7 +19,7 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
-	@Bean
+//	@Bean
 	public MapReactiveUserDetailsService userDetailService() {
 		@SuppressWarnings("deprecation")
 		UserDetails user = User.withDefaultPasswordEncoder()
@@ -33,6 +33,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
 		return http
+//				.headers().xssProtection()
 				.csrf().disable()
 				.authorizeExchange()
 				.pathMatchers("/api/**", "/static/**").permitAll()

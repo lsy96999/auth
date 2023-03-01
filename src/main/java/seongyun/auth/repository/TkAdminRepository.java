@@ -1,7 +1,5 @@
 package seongyun.auth.repository;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,7 +16,15 @@ import seongyun.auth.domain.entity.TkAdminRole;
 @RequiredArgsConstructor
 public class TkAdminRepository {
 	private final DatabaseClient databaseClient;
+	public Mono<TkAdmin> getTkAdminByMail(String mail) {
+		return getTkAdminBySub(null, mail);
+	}
+	
 	public Mono<TkAdmin> getTkAdminBySn(Long adminSn) {
+		return getTkAdminBySub(adminSn, null);
+	}
+	
+	public Mono<TkAdmin> getTkAdminBySub(Long adminSn, String mail) {
 		String sql = """
 					SELECT 
 					--
@@ -72,72 +78,71 @@ public class TkAdminRepository {
 						ON tcc2.code_id = 'TK_ADMIN_ROLE_CODE'
 						AND tcc2.code_value = ttar.tk_admin_role_code
 				WHERE 1=1
-					AND tta.admin_sn = :adminSn
 				""";
-		
-		Flux<TkAdmin> a = databaseClient.sql(sql).bind("adminSn", adminSn).fetch().all()
+				if(adminSn != null) {
+					sql += "AND tta.admin_sn = :value";
+				} else if(mail != null) {
+					sql += "AND tta.admin_mail = :value";
+				}
+				
+		Flux<TkAdmin> a = databaseClient.sql(sql).bind("value", adminSn != null ? adminSn : mail).fetch().all()
 		.bufferUntilChanged(result -> result.get("tta_admin_sn"))
 		.map(result->{
 			List<TkAdminRole> roles = result.stream().map(r -> TkAdminRole.builder()
-																	.useYn(String.valueOf(r.get("ttar_use_yn")))
-																	.updateBy(Long.parseLong(String.valueOf(r.get("ttar_update_by"))))
-																	.createBy(Long.parseLong(String.valueOf(r.get("ttar_create_by"))))
-																	.updateAt(toLocalDateTime(String.valueOf(r.get("ttar_update_at"))))
-																	.createAt(toLocalDateTime(String.valueOf(r.get("ttar_create_at"))))
-																	.adminSn(Long.parseLong(String.valueOf(r.get("ttar_admin_sn"))))
-																	.adminSttusCode(
-																					CommonCode.builder()
-																						.sortOrdr(Integer.parseInt(String.valueOf(r.get("tcc2_sort_ordr"))))
-																						.updateBy(Long.parseLong(String.valueOf(r.get("tcc2_update_by"))))
-																						.createBy(Long.parseLong(String.valueOf(r.get("tcc2_create_by"))))
-																						.updateAt(toLocalDateTime(String.valueOf(r.get("tcc2_update_at"))))
-																						.createAt(toLocalDateTime(String.valueOf(r.get("tcc2_create_at"))))
-																						.useYn(String.valueOf(r.get("tcc2_use_yn")))
-																						.codeNm(String.valueOf(r.get("tcc2_code_nm")))
-																						.codeGroup(String.valueOf(r.get("tcc2_code_group")))
-																						.codeDesc(String.valueOf(r.get("tcc2_code_desc")))
-																						.codeId(String.valueOf(r.get("tcc2_code_id")))
-																						.codeValue(String.valueOf(r.get("tcc2_code_value")))
-																					.build()
-																	)
-																	.build()
+																			.useYn(r.get("ttar_use_yn"))
+																			.updateBy(r.get("ttar_update_by"))
+																			.createBy(r.get("ttar_create_by"))
+																			.updateAt(r.get("ttar_update_at"))
+																			.createAt(r.get("ttar_create_at"))
+																			.adminSn(r.get("ttar_admin_sn"))
+																			.adminSttusCode(
+																							CommonCode.builder()
+																								.sortOrdr(r.get("tcc2_sort_ordr"))
+																								.updateBy(r.get("tcc2_update_by"))
+																								.createBy(r.get("tcc2_create_by"))
+																								.updateAt(r.get("tcc2_update_at"))
+																								.createAt(r.get("tcc2_create_at"))
+																								.useYn(r.get("tcc2_use_yn"))
+																								.codeNm(r.get("tcc2_code_nm"))
+																								.codeGroup(r.get("tcc2_code_group"))
+																								.codeDesc(r.get("tcc2_code_desc"))
+																								.codeId(r.get("tcc2_code_id"))
+																								.codeValue(r.get("tcc2_code_value"))
+																							.build()
+																			)
+																			.build()
 														).collect(Collectors.toList());
 			Map<String, Object> r  =result.get(0);
 			TkAdmin tkadm = TkAdmin.builder()
-									.updateBy(Long.parseLong(String.valueOf(r.get("tta_update_by"))))
-									.createBy(Long.parseLong(String.valueOf(r.get("tta_create_by"))))
-									.updateAt(toLocalDateTime(String.valueOf(r.get("tta_update_at"))))
-									.createAt(toLocalDateTime(String.valueOf(r.get("tta_create_at"))))
-									.useYn(String.valueOf(r.get("tta_use_yn")))
-									.adminSn(Long.parseLong(String.valueOf(r.get("tta_admin_sn"))))
-									.adminNm(String.valueOf(r.get("tta_admin_nm")))
-									.adminPw(String.valueOf(r.get("tta_admin_pw")))
-									.adminMail(String.valueOf(r.get("tta_admin_mail")))
+									.updateBy(r.get("tta_update_by"))
+									.createBy(r.get("tta_create_by"))
+									.updateAt(r.get("tta_update_at"))
+									.createAt(r.get("tta_create_at"))
+									.useYn(r.get("tta_use_yn"))
+									.adminSn(r.get("tta_admin_sn"))
+									.adminNm(r.get("tta_admin_nm"))
+									.adminPw(r.get("tta_admin_pw"))
+									.adminMail(r.get("tta_admin_mail"))
 									.tkAdminRole(roles)
 									.tkAdminSttusCode(
 													CommonCode.builder()
-														.sortOrdr(Integer.parseInt(String.valueOf(r.get("tcc_sort_ordr"))))
-														.updateBy(Long.parseLong(String.valueOf(r.get("tcc_update_by"))))
-														.createBy(Long.parseLong(String.valueOf(r.get("tcc_create_by"))))
-														.updateAt(toLocalDateTime(String.valueOf(r.get("tcc_update_at"))))
-														.createAt(toLocalDateTime(String.valueOf(r.get("tcc_create_at"))))
-														.useYn(String.valueOf(r.get("tcc_use_yn")))
-														.codeNm(String.valueOf(r.get("tcc_code_nm")))
-														.codeGroup(String.valueOf(r.get("tcc_code_group")))
-														.codeDesc(String.valueOf(r.get("tcc_code_desc")))
-														.codeId(String.valueOf(r.get("tcc_code_id")))
-														.codeValue(String.valueOf(r.get("tcc_code_value")))
+														.sortOrdr(r.get("tcc_sort_ordr"))
+														.updateBy(r.get("tcc_update_by"))
+														.createBy(r.get("tcc_create_by"))
+														.updateAt(r.get("tcc_update_at"))
+														.createAt(r.get("tcc_create_at"))
+														.useYn(r.get("tcc_use_yn"))
+														.codeNm(r.get("tcc_code_nm"))
+														.codeGroup(r.get("tcc_code_group"))
+														.codeDesc(r.get("tcc_code_desc"))
+														.codeId(r.get("tcc_code_id"))
+														.codeValue(r.get("tcc_code_value"))
 													.build()
-													)
+									)
 									.build();
 			return tkadm;
 		});
 		
 		return a.next();
-	}
-	
-	private LocalDateTime toLocalDateTime(String str) {
-		String newstr = str.replace("T", " ");
-		return Timestamp.valueOf(newstr).toLocalDateTime();
 	}
 }

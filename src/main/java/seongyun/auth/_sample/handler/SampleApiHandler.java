@@ -42,7 +42,6 @@ public class SampleApiHandler {
 	}
 	
 	public Mono<ServerResponse> getSamples(ServerRequest req){
-		
 		Flux<Sample> fs = sampleService.getSamples();
 		RVO<List<Sample>> rvn = new RVO<>();
 		rvn.setCode("xxxx");

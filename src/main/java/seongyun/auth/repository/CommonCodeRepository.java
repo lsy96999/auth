@@ -12,5 +12,6 @@ public class CommonCodeRepository {
 	private final DatabaseClient databaseClient;
 	
 	public void getCommonCode(String codeId, String codeValue) {
+		
 	}
 }
