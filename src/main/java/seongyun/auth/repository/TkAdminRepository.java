@@ -95,7 +95,7 @@ public class TkAdminRepository {
 																			.updateAt(r.get("ttar_update_at"))
 																			.createAt(r.get("ttar_create_at"))
 																			.adminSn(r.get("ttar_admin_sn"))
-																			.adminSttusCode(
+																			.adminRoleCode(
 																							CommonCode.builder()
 																								.sortOrdr(r.get("tcc2_sort_ordr"))
 																								.updateBy(r.get("tcc2_update_by"))
@@ -144,5 +144,37 @@ public class TkAdminRepository {
 		});
 		
 		return a.next();
+	}
+	
+	public void insertTkAdmin(TkAdmin admin) {
+		String sql = """
+				insert into tb_tk_admin
+					  (admin_nm, admin_mail, admin_pw, tk_admin_sttus_code, use_yn, create_at, update_at, create_by, update_by)
+				values(:adminNm, :adminMail, :adminPw, :tkAdminSttusCode, :useYn, now(), now(), :createBy, :updateBy)
+				""";
+		this.databaseClient.sql(sql)
+		.bind("adminNm", admin.getAdminNm())
+		.bind("adminMail", admin.getAdminMail())
+		.bind("adminPw", admin.getAdminPw())
+		.bind("tkAdminSttusCode", admin.getTkAdminSttusCode().getCodeValue())
+		.bind("useYn", admin.getUseYn())
+		.bind("createBy", admin.getCreateBy())
+		.bind("updateBy" , admin.getUpdateBy())
+		.fetch().rowsUpdated();
+	}
+	
+	public void insertTkAdminRole(TkAdminRole adminRole) {
+		String sql = """
+				insert into tb_tk_admin_role
+					  (admin_sn, tk_admin_role_code, use_yn, create_at, update_at, create_by, update_by)
+				values(:adminSn, :tkAdminRoleCode, :useYn, now(), now(), :createBy, :updateBy)
+				""";
+		this.databaseClient.sql(sql)
+		.bind("adminSn", adminRole.getAdminSn())
+		.bind("tkAdminRoleCode", adminRole.getAdminRoleCode().getCodeValue())
+		.bind("useYn", adminRole.getUseYn())
+		.bind("createBy", adminRole.getCreateBy())
+		.bind("updateBy", adminRole.getUpdateBy())
+		.fetch().rowsUpdated();
 	}
 }

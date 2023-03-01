@@ -1,4 +1,4 @@
-package seongyun.auth.handler;
+package seongyun.auth.handler.api;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;

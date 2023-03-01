@@ -14,8 +14,8 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import lombok.RequiredArgsConstructor;
-import seongyun.auth.handler.ApiTkAdminHandler;
 import seongyun.auth.handler.TkAdminHandler;
+import seongyun.auth.handler.api.ApiTkAdminHandler;
 
 @Configuration
 @RequiredArgsConstructor

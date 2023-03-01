@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TkAdminRole extends Base{
 	private Long adminSn;
-	private CommonCode adminSttusCode; 
+	private CommonCode adminRoleCode; 
 	
 	@Builder
 	public TkAdminRole(
-			Object adminSn, Object adminSttusCode,
+			Object adminSn, Object adminRoleCode,
 			Object useYn, Object createAt, Object updateAt, Object createBy, Object updateBy) {
 		super(useYn, createAt, updateAt, createBy, updateBy);
 		this.adminSn = Long.parseLong(String.valueOf(adminSn));
-		this.adminSttusCode = (CommonCode) adminSttusCode;
+		this.adminRoleCode = (CommonCode) adminRoleCode;
 	}
 }

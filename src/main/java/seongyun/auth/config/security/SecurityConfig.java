@@ -37,7 +37,7 @@ public class SecurityConfig {
 //				.headers().xssProtection()
 				.csrf().disable()
 				.authorizeExchange()
-				.pathMatchers("/api/**", "/static/**", "/webjars/**", "/join/**").permitAll()
+				.pathMatchers("/api/**", "/static/**", "/webjars/**", "/join/**", "/echo/**").permitAll()
 				.anyExchange()
 				.authenticated()
 				.and().formLogin()

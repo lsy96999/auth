@@ -44,7 +44,7 @@ public class TkAdmin extends Base implements UserDetails{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> roleArr = new ArrayList<>();
 		for (TkAdminRole e: this.tkAdminRole) {
-			roleArr.add(new SimpleGrantedAuthority(e.getAdminSttusCode().getCodeValue()));
+			roleArr.add(new SimpleGrantedAuthority(e.getAdminRoleCode().getCodeValue()));
 		}
 		return roleArr;
 	}

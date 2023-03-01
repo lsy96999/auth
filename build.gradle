@@ -22,7 +22,7 @@ repositories {
 
 dependencies {
 	implementation 'org.modelmapper:modelmapper:3.1.1'//modelMapper
-	
+	implementation 'org.springframework.boot:spring-boot-starter-mail'//mail
 	implementation 'org.springframework.boot:spring-boot-starter-security'//security
 	implementation 'com.auth0:java-jwt:4.3.0'
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot:3.0.5'
