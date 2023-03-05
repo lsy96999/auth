@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 import seongyun.auth.domain.entity.CommonCode;
 import seongyun.auth.domain.entity.TkAdmin;
 import seongyun.auth.domain.entity.TkAdminRole;
+import seongyun.auth.util.EntitiyUtil;
 
 @Repository
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class TkAdminRepository {
 		return getTkAdminBySub(adminSn, null);
 	}
 	
-	public Mono<TkAdmin> getTkAdminBySub(Long adminSn, String mail) {
+	private Mono<TkAdmin> getTkAdminBySub(Long adminSn, String mail) {
 		String sql = """
 				SELECT 
 					--
@@ -78,6 +79,7 @@ public class TkAdminRepository {
 						ON tcc2.code_id = 'TK_ADMIN_ROLE_CODE'
 						AND tcc2.code_value = ttar.tk_admin_role_code
 				WHERE 1=1
+				AND tta.use_yn = 'Y'
 				""";
 				if(adminSn != null) {
 					sql += "AND tta.admin_sn = :adminSn";
@@ -146,35 +148,62 @@ public class TkAdminRepository {
 		return a.next();
 	}
 	
-	public void insertTkAdmin(TkAdmin admin) {
+	public Mono<Long> nextTkAdminSeq(){
 		String sql = """
-				insert into tb_tk_admin
-					  (admin_nm, admin_mail, admin_pw, tk_admin_sttus_code, use_yn, create_at, update_at, create_by, update_by)
-				values(:adminNm, :adminMail, :adminPw, :tkAdminSttusCode, :useYn, now(), now(), :createBy, :updateBy)
+				SELECT nextval('seq_tb_tk_admin')
 				""";
-		this.databaseClient.sql(sql)
-		.bind("adminNm", admin.getAdminNm())
-		.bind("adminMail", admin.getAdminMail())
-		.bind("adminPw", admin.getAdminPw())
-		.bind("tkAdminSttusCode", admin.getTkAdminSttusCode().getCodeValue())
-		.bind("useYn", admin.getUseYn())
-		.bind("createBy", admin.getCreateBy())
-		.bind("updateBy" , admin.getUpdateBy())
-		.fetch().rowsUpdated();
+		return this.databaseClient.sql(sql).fetch().one().flatMap(a -> {
+			return Mono.just((Long)a.get("nextval"));
+		});
 	}
 	
-	public void insertTkAdminRole(TkAdminRole adminRole) {
+	public Mono<Integer> countTkAdminOfMail(String mail) {
 		String sql = """
-				insert into tb_tk_admin_role
-					  (admin_sn, tk_admin_role_code, use_yn, create_at, update_at, create_by, update_by)
-				values(:adminSn, :tkAdminRoleCode, :useYn, now(), now(), :createBy, :updateBy)
+				SELECT count(*)
+				FROM tb_tk_admin tta
+				WHERE tta.use_yn = 'Y' AND tta.admin_mail = :mail
 				""";
-		this.databaseClient.sql(sql)
+		return this.databaseClient.sql(sql)
+		.bind("mail", mail)
+		.fetch().one().flatMap(a -> {
+			return Mono.just(EntitiyUtil.toIntger(a.get("count")));
+		});
+	}
+	
+	public Mono<Integer> insertTkAdmin(TkAdmin admin) {
+		String sql = """
+				INSERT INTO tb_tk_admin
+					  (admin_sn, admin_nm, admin_mail, admin_pw, tk_admin_sttus_code, use_yn, create_at, update_at, create_by, update_by)
+				VALUES(:adminSn, :adminNm, :adminMail, :adminPw, :tkAdminSttusCode, :useYn, now(), now(), :createBy, :updateBy)
+				""";
+		return this.databaseClient.sql(sql)
+				.bind("adminSn", admin.getAdminSn())
+				.bind("adminNm", admin.getAdminNm())
+				.bind("adminMail", admin.getAdminMail())
+				.bind("adminPw", admin.getAdminPw())
+				.bind("tkAdminSttusCode", admin.getTkAdminSttusCode().getCodeValue())
+				.bind("useYn", admin.getUseYn())
+				.bind("createBy", admin.getCreateBy())
+				.bind("updateBy" , admin.getUpdateBy())
+				.fetch().rowsUpdated().flatMap(a -> {
+			return Mono.just(Long.valueOf(a).intValue());
+		});
+	}
+	
+	public Mono<Integer> insertTkAdminRole(TkAdminRole adminRole) {
+		String sql = """
+				INSERT INTO tb_tk_admin_role
+					  (admin_sn, tk_admin_role_code, use_yn, create_at, update_at, create_by, update_by)
+				VALUES(:adminSn, :tkAdminRoleCode, :useYn, now(), now(), :createBy, :updateBy)
+				""";
+		return this.databaseClient.sql(sql)
 		.bind("adminSn", adminRole.getAdminSn())
 		.bind("tkAdminRoleCode", adminRole.getAdminRoleCode().getCodeValue())
 		.bind("useYn", adminRole.getUseYn())
 		.bind("createBy", adminRole.getCreateBy())
 		.bind("updateBy", adminRole.getUpdateBy())
-		.fetch().rowsUpdated();
+		.fetch().rowsUpdated().flatMap(a -> {
+			return Mono.just(Long.valueOf(a).intValue());
+		});
 	}
 }

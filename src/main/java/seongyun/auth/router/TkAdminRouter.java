@@ -28,6 +28,7 @@ public class TkAdminRouter {
 	public RouterFunction<ServerResponse> adminRoute(){
 		return nest(path("/api/tkadmin"), 
 								route(GET("/{adminSn}"),		apiTkAdminHandler::getTkAdminBySn)
+								.andRoute(POST(EMPTY),			apiTkAdminHandler::insertTkAdmin)
 							);
 	}
 	
