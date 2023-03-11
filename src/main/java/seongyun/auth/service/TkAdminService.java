@@ -10,17 +10,49 @@ import seongyun.auth.domain.dto.TkAdminJoinDto;
 import seongyun.auth.domain.entity.CommonCode;
 import seongyun.auth.domain.entity.TkAdmin;
 import seongyun.auth.domain.entity.TkAdminRole;
-import seongyun.auth.repository._TkAdminRepository;
+import seongyun.auth.repository.TkAdminRepository;
+import seongyun.auth.repository.TkAdminRoleRepository;
 
 @Service
 @RequiredArgsConstructor
 public class TkAdminService {
-	private final _TkAdminRepository tkAdminRepository;
+	private final TkAdminRepository tkAdminRepository;
+	private final TkAdminRoleRepository tkAdminRoleRepository;
 	private final PasswordEncoder pe;
 	
-//	public Mono<TkAdmin> getTkAdminBySn(Long adminSn){
-//		return tkAdminRepository.getTkAdminBySn(adminSn);
-//	}
+	@Transactional
+	public Mono<TkAdmin> getTkAdminByMail(String mail){
+		return tkAdminRepository.findByAdminMail(mail).flatMap(a->{
+			return tkAdminRoleRepository.findByAdminSn(a.getAdminSn()).collectList().flatMap(b->{
+				a.setRoles(b);
+				return Mono.just(a);
+			});
+		});
+	}
+	
+	public Mono<TkAdmin> getTkAdminBySn(Long adminSn){
+		return tkAdminRepository.findById(adminSn);
+	}
+	
+	@Transactional
+	public Mono<TkAdmin> insertTkAdmin(TkAdminJoinDto dto){
+		
+		
+		return tkAdminRepository.save(TkAdmin.builder()
+				.adminMail(dto.getAdminMail())
+				.adminPw(pe.encode(dto.getAdminPw()))
+				.adminNm(dto.getAdminNm())
+				.tkAdminSttusCode("LIVE")
+				.useYn("Y")
+				.build()).flatMap(adm -> tkAdminRoleRepository.save(TkAdminRole.builder()
+						.useYn("Y")
+						.adminSn(adm.getAdminSn())
+						.tkAdminRoleCode("ROLE_NORMAL")
+						.build()).flatMap(r-> {
+							adm.setTkAdminRole(r.getAdminRoleSn());
+							return tkAdminRepository.save(adm);
+						}));
+	}
 //	
 //	public Mono<TkAdmin> getTkAdminByMail(String mail){
 //		return tkAdminRepository.getTkAdminByMail(mail);

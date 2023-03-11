@@ -31,6 +31,7 @@ public class CommonCodeService {
 				.codeValue(dto.getCodeValue())
 				.codeDesc(dto.getCodeDesc())
 				.codeNm(dto.getCodeNm())
+				.useYn("Y")
 				.codeGroup(dto.getCodeGroup())
 				.build());
 	}

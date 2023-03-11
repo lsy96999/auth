@@ -2,8 +2,10 @@ package seongyun.auth.domain.entity;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 import seongyun.auth.util.EntitiyUtil;
 
 @Getter
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table("tb_common_code")
 public class CommonCode /*extends Base*/{
 	@Id@Column("code_sn")	private Long codeSn;
@@ -28,19 +30,22 @@ public class CommonCode /*extends Base*/{
 	@Column("use_yn")		private String useYn;
 	@CreatedDate
 	@Column("create_at")	private LocalDateTime createAt;
+	@CreatedBy
 	@Column("create_by")	private Long createBy;
 	@LastModifiedDate
 	@Column("update_at")	private LocalDateTime updateAt;
+	@LastModifiedBy
 	@Column("update_by")	private Long updateBy;
 	
 	@Builder
-	public CommonCode(Long codeSn, String codeId, String codeValue, String codeNm, String codeDesc, String codeGroup) {
+	public CommonCode(Long codeSn, String codeId, String codeValue, String codeNm, String codeDesc, String codeGroup, String useYn) {
 		this.codeSn = codeSn;
 		this.codeId = codeId;
 		this.codeValue = codeValue;
 		this.codeNm = codeNm;
 		this.codeDesc = codeDesc;
 		this.codeGroup = codeGroup;
+		this.useYn = useYn;
 	}
 	
 //	@Builder

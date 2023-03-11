@@ -24,14 +24,14 @@ public class TkAdminRouter {
 	private final ApiTkAdminHandler apiTkAdminHandler;
 	private static final String EMPTY = "";
 
-//	@Bean
-//	public RouterFunction<ServerResponse> adminRoute(){
-//		return nest(path("/api/tkadmin"), 
-//								route(GET("/{adminSn}"),		apiTkAdminHandler::getTkAdminBySn)
-//								.andRoute(POST(EMPTY),			apiTkAdminHandler::insertTkAdmin)
-//							);
-//	}
-//	
+	@Bean
+	public RouterFunction<ServerResponse> adminApiRoute(){
+		return nest(path("/api/tkadmin"), 
+								route(GET("/{adminMail}"),		apiTkAdminHandler::getTkAdminByMail)
+								.andRoute(POST(EMPTY),			apiTkAdminHandler::insertTkAdmin)
+							);
+	}
+	
 	@Bean
 	public RouterFunction<ServerResponse> adminViewRoute(){
 		return nest(path("/join"), 

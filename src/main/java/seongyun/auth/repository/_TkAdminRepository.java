@@ -170,40 +170,40 @@ public class _TkAdminRepository {
 		});
 	}
 	
-	public Mono<Integer> insertTkAdmin(TkAdmin admin) {
-		String sql = """
-				INSERT INTO tb_tk_admin
-					  (admin_sn, admin_nm, admin_mail, admin_pw, tk_admin_sttus_code, use_yn, create_at, update_at, create_by, update_by)
-				VALUES(:adminSn, :adminNm, :adminMail, :adminPw, :tkAdminSttusCode, :useYn, now(), now(), :createBy, :updateBy)
-				""";
-		return this.databaseClient.sql(sql)
-				.bind("adminSn", admin.getAdminSn())
-				.bind("adminNm", admin.getAdminNm())
-				.bind("adminMail", admin.getAdminMail())
-				.bind("adminPw", admin.getAdminPw())
-				.bind("tkAdminSttusCode", admin.getTkAdminSttusCode().getCodeValue())
-				.bind("useYn", admin.getUseYn())
-				.bind("createBy", admin.getCreateBy())
-				.bind("updateBy" , admin.getUpdateBy())
-				.fetch().rowsUpdated().flatMap(a -> {
-			return Mono.just(Long.valueOf(a).intValue());
-		});
-	}
-	
-	public Mono<Integer> insertTkAdminRole(TkAdminRole adminRole) {
-		String sql = """
-				INSERT INTO tb_tk_admin_role
-					  (admin_sn, tk_admin_role_code, use_yn, create_at, update_at, create_by, update_by)
-				VALUES(:adminSn, :tkAdminRoleCode, :useYn, now(), now(), :createBy, :updateBy)
-				""";
-		return this.databaseClient.sql(sql)
-		.bind("adminSn", adminRole.getAdminSn())
-		.bind("tkAdminRoleCode", adminRole.getAdminRoleCode().getCodeValue())
-		.bind("useYn", adminRole.getUseYn())
-		.bind("createBy", adminRole.getCreateBy())
-		.bind("updateBy", adminRole.getUpdateBy())
-		.fetch().rowsUpdated().flatMap(a -> {
-			return Mono.just(Long.valueOf(a).intValue());
-		});
-	}
+//	public Mono<Integer> insertTkAdmin(TkAdmin admin) {
+//		String sql = """
+//				INSERT INTO tb_tk_admin
+//					  (admin_sn, admin_nm, admin_mail, admin_pw, tk_admin_sttus_code, use_yn, create_at, update_at, create_by, update_by)
+//				VALUES(:adminSn, :adminNm, :adminMail, :adminPw, :tkAdminSttusCode, :useYn, now(), now(), :createBy, :updateBy)
+//				""";
+//		return this.databaseClient.sql(sql)
+//				.bind("adminSn", admin.getAdminSn())
+//				.bind("adminNm", admin.getAdminNm())
+//				.bind("adminMail", admin.getAdminMail())
+//				.bind("adminPw", admin.getAdminPw())
+//				.bind("tkAdminSttusCode", admin.getTkAdminSttusCode().getCodeValue())
+//				.bind("useYn", admin.getUseYn())
+//				.bind("createBy", admin.getCreateBy())
+//				.bind("updateBy" , admin.getUpdateBy())
+//				.fetch().rowsUpdated().flatMap(a -> {
+//			return Mono.just(Long.valueOf(a).intValue());
+//		});
+//	}
+//	
+//	public Mono<Integer> insertTkAdminRole(TkAdminRole adminRole) {
+//		String sql = """
+//				INSERT INTO tb_tk_admin_role
+//					  (admin_sn, tk_admin_role_code, use_yn, create_at, update_at, create_by, update_by)
+//				VALUES(:adminSn, :tkAdminRoleCode, :useYn, now(), now(), :createBy, :updateBy)
+//				""";
+//		return this.databaseClient.sql(sql)
+//		.bind("adminSn", adminRole.getAdminSn())
+//		.bind("tkAdminRoleCode", adminRole.getAdminRoleCode().getCodeValue())
+//		.bind("useYn", adminRole.getUseYn())
+//		.bind("createBy", adminRole.getCreateBy())
+//		.bind("updateBy", adminRole.getUpdateBy())
+//		.fetch().rowsUpdated().flatMap(a -> {
+//			return Mono.just(Long.valueOf(a).intValue());
+//		});
+//	}
 }

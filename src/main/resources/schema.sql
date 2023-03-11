@@ -27,6 +27,7 @@ create table IF NOT EXISTS tb_tk_admin(
 	admin_nm varchar(100),
 	admin_mail varchar(100) unique,
 	admin_pw varchar(100),
+	tk_admin_role numeric(10),
 	tk_admin_sttus_code varchar(100),
 	use_yn char(1),
 	create_at timestamp,
@@ -55,14 +56,14 @@ create table IF NOT EXISTS tb_common_code(
 );
 alter table tb_common_code add unique (code_id, code_value);
 --@ttar
+create sequence IF NOT EXISTS seq_tb_tk_admin_role;
 create table IF NOT EXISTS tb_tk_admin_role(
-	admin_sn numeric(10),
+	admin_role_sn numeric(10) primary key default nextval('SEQ_TB_TK_ADMIN_ROLE'),
 	tk_admin_role_code varchar(100),
 	use_yn char(1),
 	create_at timestamp,
 	update_at timestamp,
 	create_by numeric(10),
-	update_by numeric(10),
-	primary key (admin_sn, tk_admin_role_code)
+	update_by numeric(10)
 );
 ----------
