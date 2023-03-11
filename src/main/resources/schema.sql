@@ -36,8 +36,11 @@ create table IF NOT EXISTS tb_tk_admin(
 );
 --@sta
 create sequence IF NOT EXISTS seq_tb_tk_admin;
+
+create sequence IF NOT EXISTS seq_tb_common_code;
 --@tcc
 create table IF NOT EXISTS tb_common_code(
+	code_sn numeric(10) primary key default nextval('SEQ_TB_COMMON_CODE'),
 	code_id varchar(100),
 	code_value varchar(100),
 	code_nm varchar(100),
@@ -48,9 +51,9 @@ create table IF NOT EXISTS tb_common_code(
 	create_at timestamp,
 	update_at timestamp,
 	create_by numeric(10),
-	update_by numeric(10),
-	primary key (code_id, code_value)
+	update_by numeric(10)
 );
+alter table tb_common_code add unique (code_id, code_value);
 --@ttar
 create table IF NOT EXISTS tb_tk_admin_role(
 	admin_sn numeric(10),

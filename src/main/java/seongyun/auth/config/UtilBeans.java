@@ -13,10 +13,10 @@ public class UtilBeans {
 	@Bean
 	public ModelMapper mm() {
 		ModelMapper mm = new ModelMapper();
-		mm.getConfiguration()
-			.setDestinationNameTokenizer(NameTokenizers.UNDERSCORE)
-			.setSourceNameTokenizer(NameTokenizers.UNDERSCORE);
-		mm.getTypeMap(String.class, LocalDateTime.class);
+//		mm.getConfiguration()
+//			.setDestinationNameTokenizer(NameTokenizers.UNDERSCORE)
+//			.setSourceNameTokenizer(NameTokenizers.UNDERSCORE);
+//		mm.getTypeMap(String.class, LocalDateTime.class);
 		return mm;
 	}
 

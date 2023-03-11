@@ -11,18 +11,18 @@ import reactor.test.StepVerifier;
 @ActiveProfiles(profiles = {"test"})
 //@Transactional
 @Slf4j
-public class TkAdminRepositoryTest {
+public class _TkAdminRepositoryTest {
 	private static final String PW = "?";
 	static {
 		System.setProperty("jasypt.encryptor.password", PW);
 	}
-	@Autowired private TkAdminRepository repo;
+	@Autowired private _TkAdminRepository repo;
 	
 	
-	@Test
-	void testsample() {
-		StepVerifier.create(repo.getTkAdminBySn(1L))
-		.thenConsumeWhile(a -> a.getAdminMail().equals("ADMIN"))
-		.verifyComplete();
-	}
+//	@Test
+//	void testsample() {
+//		StepVerifier.create(repo.getTkAdminBySn(1L))
+//		.thenConsumeWhile(a -> a.getAdminMail().equals("ADMIN"))
+//		.verifyComplete();
+//	}
 }

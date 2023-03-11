@@ -20,7 +20,7 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
-	//@Bean//FOR test
+	@Bean//FOR test
 	public MapReactiveUserDetailsService userDetailService() {
 		@SuppressWarnings("deprecation")
 		UserDetails user = User.withDefaultPasswordEncoder()

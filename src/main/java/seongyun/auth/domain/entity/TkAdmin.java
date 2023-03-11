@@ -25,19 +25,19 @@ public class TkAdmin extends Base implements UserDetails{
 	private List<TkAdminRole> tkAdminRole;
 	private CommonCode tkAdminSttusCode;
 	
-	@Builder
-	public TkAdmin(
-			Object adminSn, Object adminNm, Object adminMail, Object adminPw,
-			Object tkAdminRole, Object tkAdminSttusCode,
-			Object useYn, Object createAt, Object updateAt, Object createBy, Object updateBy) {
-		super(useYn, createAt, updateAt, createBy, updateBy);
-		this.adminSn = EntitiyUtil.toLong(adminSn);
-		this.adminNm = EntitiyUtil.toString(adminNm);
-		this.adminMail = EntitiyUtil.toString(adminMail);
-		this.adminPw = EntitiyUtil.toString(adminPw);
-		this.tkAdminRole = EntitiyUtil.<TkAdminRole>toList(tkAdminRole);
-		this.tkAdminSttusCode = (CommonCode) tkAdminSttusCode;
-	}
+//	@Builder
+//	public TkAdmin(
+//			Object adminSn, Object adminNm, Object adminMail, Object adminPw,
+//			Object tkAdminRole, Object tkAdminSttusCode,
+//			Object useYn, Object createAt, Object updateAt, Object createBy, Object updateBy) {
+//		super(useYn, createAt, updateAt, createBy, updateBy);
+//		this.adminSn = EntitiyUtil.toLong(adminSn);
+//		this.adminNm = EntitiyUtil.toString(adminNm);
+//		this.adminMail = EntitiyUtil.toString(adminMail);
+//		this.adminPw = EntitiyUtil.toString(adminPw);
+//		this.tkAdminRole = EntitiyUtil.<TkAdminRole>toList(tkAdminRole);
+//		this.tkAdminSttusCode = (CommonCode) tkAdminSttusCode;
+//	}
 	
 	//---
 	@Override

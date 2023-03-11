@@ -1,17 +1,12 @@
 package seongyun.auth.repository;
 
-import org.springframework.r2dbc.core.DatabaseClient;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.r2dbc.repository.R2dbcRepository;
 
-import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import seongyun.auth.domain.entity.CommonCode;
 
-@Repository
-@RequiredArgsConstructor
-public class CommonCodeRepository {
-	private final DatabaseClient databaseClient;
-	
-	public void getCommonCode(String codeId, String codeValue) {
-		
-	}
+public interface CommonCodeRepository extends R2dbcRepository<CommonCode, Long>{
+	Flux<CommonCode> findByCodeId(String codeId);
+	Mono<CommonCode> findByCodeIdAndCodeValue(String codeId, String codeValue);
 }
